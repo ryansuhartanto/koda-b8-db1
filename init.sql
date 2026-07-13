@@ -160,3 +160,38 @@ JOIN "people" "p" ON "p"."name" = "n"."name";
 -- SELECT "p"."name", 'bookkeeper' AS "role" FROM "bookkepers" "bk"
 -- JOIN "people" "p" ON "p"."id" = "bk"."id_person"
 -- ORDER BY "role", "name";
+
+CREATE TABLE "shifts" (
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+
+    "id_bookkeper" INTEGER REFERENCES "bookkepers"("id"),
+
+    "shift_date" DATE NOT NULL,
+    "start_time" TIME NOT NULL,
+    "end_time" TIME NOT NULL
+);
+
+INSERT INTO "shifts" ("id_bookkeper", "shift_date", "start_time", "end_time")
+WITH "new_shifts" ("name", "shift_date", "start_time", "end_time") AS (
+    VALUES
+('Gita Larasati',  DATE '2026-07-06', TIME '08:00', TIME '14:00'),
+('Hendra Kusuma',  DATE '2026-07-06', TIME '14:00', TIME '20:00'),
+('Intan Maharani', DATE '2026-07-07', TIME '08:00', TIME '14:00'),
+('Joko Prasetyo',  DATE '2026-07-07', TIME '14:00', TIME '20:00'),
+('Gita Larasati',  DATE '2026-07-08', TIME '08:00', TIME '14:00'),
+('Hendra Kusuma',  DATE '2026-07-08', TIME '14:00', TIME '20:00'),
+('Intan Maharani', DATE '2026-07-09', TIME '08:00', TIME '14:00'),
+('Joko Prasetyo',  DATE '2026-07-09', TIME '14:00', TIME '20:00'),
+('Gita Larasati',  DATE '2026-07-10', TIME '08:00', TIME '14:00'),
+('Hendra Kusuma',  DATE '2026-07-10', TIME '14:00', TIME '20:00'),
+('Intan Maharani', DATE '2026-07-11', TIME '08:00', TIME '14:00'),
+('Joko Prasetyo',  DATE '2026-07-11', TIME '14:00', TIME '20:00'),
+('Gita Larasati',  DATE '2026-07-12', TIME '10:00', TIME '16:00'),
+('Hendra Kusuma',  DATE '2026-07-12', TIME '16:00', TIME '20:00')
+)
+SELECT "b"."id", "n"."shift_date", "n"."start_time", "n"."end_time"
+FROM "new_shifts" "n"
+JOIN "people" "p" ON "p"."name" = "n"."name"
+JOIN "bookkepers" "b" ON "b"."id_person" = "p"."id";
+
+SELECT * FROM "shifts";
