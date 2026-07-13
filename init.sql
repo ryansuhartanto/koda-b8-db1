@@ -93,3 +93,27 @@ JOIN "categories" "c" ON "c"."name" = "n"."category"
 JOIN "bookcases" "b" ON "b"."floor" = "n"."floor" AND "b"."aisle" = "n"."aisle";
 
 -- SELECT * FROM "bookcases_categories";
+
+CREATE TABLE "people" (
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+
+    "name" VARCHAR NOT NULL,
+    "phone" VARCHAR NOT NULL,
+    "address" VARCHAR NOT NULL,
+    "gender" VARCHAR,
+    "birthdate" DATE
+);
+
+INSERT INTO "people" ("name", "phone", "address", "gender", "birthdate") VALUES
+('Adinda Puspitasari', '+62 812-3345-9021', 'Jl. Cihampelas No. 142, Bandung, Jawa Barat 40131', 'female', '1996-04-17'),
+('Bagus Nurwanto', '+62 857-2210-7788', 'Jl. Kaliurang KM 5 No. 8, Sleman, DI Yogyakarta 55281', 'male', '1989-11-02'),
+('Citra Halimah Wijaya', '+62 813-9087-1145', 'Perumahan Griya Asri Blok C2/14, Bekasi, Jawa Barat 17114', 'female', '2001-06-28'),
+('Damar Setiawan', '+62 878-4412-6630', 'Jl. Diponegoro No. 77, Surabaya, Jawa Timur 60241', 'male', '1993-01-09'),
+('Elina Rahmadani', '+62 895-3320-4417', 'Jl. Gajah Mada No. 26, Denpasar, Bali 80119', 'female', '1998-09-14'),
+('Fajar Ramadhan Putra', '+62 821-6654-8809', 'Jl. Ahmad Yani No. 301, Medan, Sumatera Utara 20111', 'male', '1985-03-22'),
+('Gita Larasati', '+62 856-1178-2263', 'Jl. Pemuda No. 45, Semarang, Jawa Tengah 50132', 'female', '2003-12-05'),
+('Hendra Kusuma', '+62 838-7729-5504', 'Jl. Sam Ratulangi No. 19, Makassar, Sulawesi Selatan 90114', 'male', '1991-07-30'),
+('Intan Maharani', '+62 811-4490-3376', 'Jl. Sudirman No. 8, Palembang, Sumatera Selatan 30129', NULL, '1999-02-11'),
+('Joko Prasetyo', '+62 852-6603-1198', 'Jl. Cendrawasih No. 63, Balikpapan, Kalimantan Timur 76112', 'male', NULL);
+
+-- SELECT * FROM "people";
