@@ -117,3 +117,46 @@ INSERT INTO "people" ("name", "phone", "address", "gender", "birthdate") VALUES
 ('Joko Prasetyo', '+62 852-6603-1198', 'Jl. Cendrawasih No. 63, Balikpapan, Kalimantan Timur 76112', 'male', NULL);
 
 -- SELECT * FROM "people";
+
+CREATE TABLE "patrons" (
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+
+    "id_person" INTEGER UNIQUE REFERENCES "people"("id")
+);
+
+CREATE TABLE "bookkepers" (
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+
+    "id_person" INTEGER UNIQUE REFERENCES "people"("id")
+);
+
+INSERT INTO "patrons" ("id_person")
+WITH "new_patrons" ("name") AS (
+    VALUES
+    ('Adinda Puspitasari'),
+    ('Bagus Nurwanto'),
+    ('Citra Halimah Wijaya'),
+    ('Damar Setiawan'),
+    ('Elina Rahmadani'),
+    ('Fajar Ramadhan Putra')
+)
+SELECT "p"."id" FROM "new_patrons" "n"
+JOIN "people" "p" ON "p"."name" = "n"."name";
+
+INSERT INTO "bookkepers" ("id_person")
+WITH "new_bookkepers" ("name") AS (
+    VALUES
+    ('Gita Larasati'),
+    ('Hendra Kusuma'),
+    ('Intan Maharani'),
+    ('Joko Prasetyo')
+)
+SELECT "p"."id" FROM "new_bookkepers" "n"
+JOIN "people" "p" ON "p"."name" = "n"."name";
+
+-- SELECT "p"."name", 'patron' AS "role" FROM "patrons" "pt"
+-- JOIN "people" "p" ON "p"."id" = "pt"."id_person"
+-- UNION ALL
+-- SELECT "p"."name", 'bookkeeper' AS "role" FROM "bookkepers" "bk"
+-- JOIN "people" "p" ON "p"."id" = "bk"."id_person"
+-- ORDER BY "role", "name";
