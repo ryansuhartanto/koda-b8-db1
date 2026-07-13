@@ -195,3 +195,39 @@ JOIN "people" "p" ON "p"."name" = "n"."name"
 JOIN "bookkeepers" "b" ON "b"."id_person" = "p"."id";
 
 -- SELECT * FROM "shifts";
+
+CREATE TABLE "loan" (
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+
+    "id_book" INTEGER REFERENCES "books"("id"),
+    "id_patron" INTEGER REFERENCES "patrons"("id"),
+    "id_bookkeeper" INTEGER REFERENCES "bookkeepers"("id"),
+
+    "borrowed_at" DATE NOT NULL,
+    "due_at" DATE NOT NULL,
+    "returned_at" DATE
+);
+
+INSERT INTO "loan" ("id_book", "id_patron", "id_bookkeeper", "borrowed_at", "due_at", "returned_at")
+WITH "new_loans" ("isbn", "patron", "bookkeeper", "borrowed_at", "due_at", "returned_at") AS (
+    VALUES
+    ('978-0-13-235088-4',  'Adinda Puspitasari',   'Gita Larasati',  DATE '2026-06-08', DATE '2026-06-22', DATE '2026-06-20'),
+    ('978-0-374-53355-7',  'Bagus Nurwanto',       'Hendra Kusuma',  DATE '2026-06-12', DATE '2026-06-26', DATE '2026-06-26'),
+    ('978-0-06-065292-0',  'Citra Halimah Wijaya', 'Intan Maharani', DATE '2026-06-15', DATE '2026-06-29', DATE '2026-07-03'),
+    ('978-0-06-231609-7',  'Damar Setiawan',       'Joko Prasetyo',  DATE '2026-06-20', DATE '2026-07-04', DATE '2026-07-01'),
+    ('978-0-205-30902-3',  'Elina Rahmadani',      'Gita Larasati',  DATE '2026-06-24', DATE '2026-07-08', NULL),
+    ('978-0-553-38016-3',  'Fajar Ramadhan Putra', 'Hendra Kusuma',  DATE '2026-06-29', DATE '2026-07-13', NULL),
+    ('978-0-465-05065-9',  'Adinda Puspitasari',   'Intan Maharani', DATE '2026-07-02', DATE '2026-07-16', NULL),
+    ('978-0-7148-3247-0',  'Citra Halimah Wijaya', 'Joko Prasetyo',  DATE '2026-07-04', DATE '2026-07-18', NULL),
+    ('978-0-14-143951-8',  'Bagus Nurwanto',       'Gita Larasati',  DATE '2026-07-06', DATE '2026-07-20', DATE '2026-07-11'),
+    ('978-0-393-35432-4',  'Damar Setiawan',       'Hendra Kusuma',  DATE '2026-07-09', DATE '2026-07-23', NULL)
+)
+SELECT "bo"."id", "pt"."id", "bk"."id", "n"."borrowed_at", "n"."due_at", "n"."returned_at"
+FROM "new_loans" "n"
+JOIN "books" "bo" ON "bo"."isbn" = "n"."isbn"
+JOIN "people" "pp" ON "pp"."name" = "n"."patron"
+JOIN "patrons" "pt" ON "pt"."id_person" = "pp"."id"
+JOIN "people" "pb" ON "pb"."name" = "n"."bookkeeper"
+JOIN "bookkeepers" "bk" ON "bk"."id_person" = "pb"."id";
+
+SELECT * FROM "loan";
