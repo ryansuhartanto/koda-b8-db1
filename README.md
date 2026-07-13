@@ -11,8 +11,8 @@ erDiagram
 
 CATEGORY ||--o{ BOOK : "classifies"
 
-CATEGORY ||--o{ BOOK_LOCATION : "occupies"
-BOOKCASE ||--o{ BOOK_LOCATION : "provides"
+CATEGORY ||--o{ BOOKCASE_CATEGORY : "occupies"
+BOOKCASE ||--o{ BOOKCASE_CATEGORY : "provides"
 
 BOOKKEEPER ||--o{ SHIFT : "is rostered for"
 
@@ -40,7 +40,7 @@ BOOKCASE {
     int aile
 }
 
-BOOK_LOCATION {
+BOOKCASE_CATEGORY {
     int id_category FK
     int id_bookcase FK
 }
