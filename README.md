@@ -16,11 +16,11 @@ BOOKCASE ||--o{ BOOKCASE_CATEGORY : "provides"
 PERSON ||--o| PATRON     : "may be"
 PERSON ||--o| BOOKKEEPER : "may be"
 
-BOOKKEEPER ||--o{ SHIFT : "is rostered for"
-
 PATRON     ||--o{ LOAN : "borrows"
 BOOK       ||--o{ LOAN : "is lent in"
 BOOKKEEPER ||--o{ LOAN : "processes"
+
+BOOKKEEPER ||--o{ SHIFT : "is rostered for"
 
 BOOK {
     int id PK
