@@ -66,3 +66,30 @@ INSERT INTO "bookcases" ("floor", "aisle") VALUES
 (2, 6);
 
 -- SELECT * FROM "bookcases";
+
+CREATE TABLE "bookcases_categories" (
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+
+    "id_category" INTEGER REFERENCES "categories" ("id"),
+    "id_bookcase" INTEGER REFERENCES "bookcases" ("id")
+);
+
+INSERT INTO "bookcases_categories" ("id_category", "id_bookcase")
+WITH "new_bookcases_categories" ("floor", "aisle", "category") AS (
+    VALUES
+    (1, 1, 'Computer Science, Information & General Works'),
+    (1, 2, 'Philosophy & Psychology'),
+    (1, 3, 'Religion'),
+    (1, 4, 'Social Sciences'),
+    (2, 1, 'Language'),
+    (2, 2, 'Science'),
+    (2, 3, 'Technology'),
+    (2, 4, 'Arts & Recreation'),
+    (2, 5, 'Literature & Poetry'),
+    (2, 6, 'History & Geography')
+)
+SELECT "c"."id", "b"."id" FROM "new_bookcases_categories" "n"
+JOIN "categories" "c" ON "c"."name" = "n"."category"
+JOIN "bookcases" "b" ON "b"."floor" = "n"."floor" AND "b"."aisle" = "n"."aisle";
+
+-- SELECT * FROM "bookcases_categories";
