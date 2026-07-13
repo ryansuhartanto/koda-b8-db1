@@ -9,10 +9,12 @@ title: Library
 
 erDiagram
 
-BOOK }o--|| CATEGORY : "belongs to"
+CATEGORY ||--o{ BOOK : "classifies"
 
 CATEGORY ||--o{ BOOK_LOCATION : "occupies"
 BOOKCASE ||--o{ BOOK_LOCATION : "provides"
+
+BOOKKEEPER ||--o{ SHIFT : "is rostered for"
 
 BOOK {
     int id PK
@@ -37,6 +39,35 @@ BOOKCASE {
 BOOK_LOCATION {
     int id_category FK
     int id_bookcase FK
+}
+
+BOOKKEEPER {
+    int id PK
+    string name
+    string phone
+    string address
+
+    string gender
+    date birthdate
+}
+
+SHIFT {
+    int id PK
+
+    int id_bookkeeper FK
+
+    date shift_date
+    time start_time
+    time end_time
+}
+
+PATRON {
+    int id PK
+    string name
+    string phone
+    string address
+
+    date? birthdate
 }
 ```
 
