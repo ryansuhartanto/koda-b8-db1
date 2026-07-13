@@ -39,7 +39,7 @@ CATEGORY {
 BOOKCASE {
     int id PK
     int floor
-    int aile
+    int aisle
 }
 
 BOOKCASE_CATEGORY {
