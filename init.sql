@@ -124,7 +124,7 @@ CREATE TABLE "patrons" (
     "id_person" INTEGER UNIQUE REFERENCES "people"("id")
 );
 
-CREATE TABLE "bookkepers" (
+CREATE TABLE "bookkeepers" (
     "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 
     "id_person" INTEGER UNIQUE REFERENCES "people"("id")
@@ -143,28 +143,28 @@ WITH "new_patrons" ("name") AS (
 SELECT "p"."id" FROM "new_patrons" "n"
 JOIN "people" "p" ON "p"."name" = "n"."name";
 
-INSERT INTO "bookkepers" ("id_person")
-WITH "new_bookkepers" ("name") AS (
+INSERT INTO "bookkeepers" ("id_person")
+WITH "new_bookkeepers" ("name") AS (
     VALUES
     ('Gita Larasati'),
     ('Hendra Kusuma'),
     ('Intan Maharani'),
     ('Joko Prasetyo')
 )
-SELECT "p"."id" FROM "new_bookkepers" "n"
+SELECT "p"."id" FROM "new_bookkeepers" "n"
 JOIN "people" "p" ON "p"."name" = "n"."name";
 
 -- SELECT "p"."name", 'patron' AS "role" FROM "patrons" "pt"
 -- JOIN "people" "p" ON "p"."id" = "pt"."id_person"
 -- UNION ALL
--- SELECT "p"."name", 'bookkeeper' AS "role" FROM "bookkepers" "bk"
+-- SELECT "p"."name", 'bookkeeper' AS "role" FROM "bookkeepers" "bk"
 -- JOIN "people" "p" ON "p"."id" = "bk"."id_person"
 -- ORDER BY "role", "name";
 
 CREATE TABLE "shifts" (
     "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 
-    "id_bookkeper" INTEGER REFERENCES "bookkepers"("id"),
+    "id_bookkeper" INTEGER REFERENCES "bookkeepers"("id"),
 
     "shift_date" DATE NOT NULL,
     "start_time" TIME NOT NULL,
@@ -192,6 +192,6 @@ WITH "new_shifts" ("name", "shift_date", "start_time", "end_time") AS (
 SELECT "b"."id", "n"."shift_date", "n"."start_time", "n"."end_time"
 FROM "new_shifts" "n"
 JOIN "people" "p" ON "p"."name" = "n"."name"
-JOIN "bookkepers" "b" ON "b"."id_person" = "p"."id";
+JOIN "bookkeepers" "b" ON "b"."id_person" = "p"."id";
 
-SELECT * FROM "shifts";
+-- SELECT * FROM "shifts";
