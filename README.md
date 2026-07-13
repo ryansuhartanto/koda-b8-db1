@@ -16,6 +16,10 @@ BOOKCASE ||--o{ BOOK_LOCATION : "provides"
 
 BOOKKEEPER ||--o{ SHIFT : "is rostered for"
 
+PATRON ||--o{ LOAN : "borrows"
+BOOK ||--o{ LOAN : "is lent in"
+BOOKKEEPER ||--o{ LOAN : "processes"
+
 BOOK {
     int id PK
     string isbn
@@ -68,6 +72,18 @@ PATRON {
     string address
 
     date? birthdate
+}
+
+LOAN {
+    int id PK
+
+    int id_book FK
+    int id_patron FK
+    int id_bookkeeper FK
+
+    date borrowed_at
+    date due_at
+    date? returned_at
 }
 ```
 
