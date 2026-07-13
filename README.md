@@ -11,7 +11,7 @@ erDiagram
 
 BOOK }o--|| CATEGORY : "belongs to"
 
-BOOK     ||--o{ BOOK_LOCATION : "occupies"
+CATEGORY ||--o{ BOOK_LOCATION : "occupies"
 BOOKCASE ||--o{ BOOK_LOCATION : "provides"
 
 BOOK {
@@ -35,7 +35,7 @@ BOOKCASE {
 }
 
 BOOK_LOCATION {
-    int id_book FK
+    int id_category FK
     int id_bookcase FK
 }
 ```
