@@ -16,3 +16,53 @@ INSERT INTO "categories" ("id", "name") VALUES
 (900, 'History & Geography');
 
 -- SELECT * FROM "categories";
+
+CREATE TABLE "books" (
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+
+    "isbn" CHAR(17) NOT NULL,
+    "name" VARCHAR NOT NULL,
+    "author" VARCHAR NOT NULL,
+
+    "id_category" INTEGER REFERENCES "categories" ("id")
+);
+
+INSERT INTO "books" ("isbn", "name", "author", "id_category")
+WITH "new_books" ("isbn", "name", "author", "category") AS (
+    VALUES
+    ('978-0-13-235088-4', 'Clean Code', 'Robert C. Martin', 'Computer Science, Information & General Works'),
+    ('978-0-374-53355-7', 'Thinking, Fast and Slow', 'Daniel Kahneman', 'Philosophy & Psychology'),
+    ('978-0-06-065292-0', 'Mere Christianity', 'C. S. Lewis', 'Religion'),
+    ('978-0-06-231609-7', 'Sapiens: A Brief History of Humankind', 'Yuval Noah Harari', 'Social Sciences'),
+    ('978-0-205-30902-3', 'The Elements of Style', 'William Strunk Jr. & E. B. White', 'Language'),
+    ('978-0-553-38016-3', 'A Brief History of Time', 'Stephen Hawking', 'Science'),
+    ('978-0-465-05065-9', 'The Design of Everyday Things', 'Don Norman', 'Technology'),
+    ('978-0-7148-3247-0', 'The Story of Art', 'E. H. Gombrich', 'Arts & Recreation'),
+    ('978-0-14-143951-8', 'Pride and Prejudice', 'Jane Austen', 'Literature & Poetry'),
+    ('978-0-393-35432-4', 'Guns, Germs, and Steel', 'Jared Diamond', 'History & Geography')
+)
+SELECT "b"."isbn", "b"."name", "b"."author", "c"."id" FROM "new_books" "b"
+JOIN "categories" "c" ON "c"."name" = "b"."category";
+
+-- SELECT * FROM "books";
+
+CREATE TABLE "bookcases" (
+    "id" INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+
+    "floor" INTEGER NOT NULL,
+    "aisle" INTEGER NOT NULL
+);
+
+INSERT INTO "bookcases" ("floor", "aisle") VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 5),
+(2, 6);
+
+-- SELECT * FROM "bookcases";
