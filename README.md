@@ -11,6 +11,9 @@ erDiagram
 
 BOOK }o--|| CATEGORY : "belongs to"
 
+BOOK     ||--o{ BOOK_LOCATION : "occupies"
+BOOKCASE ||--o{ BOOK_LOCATION : "provides"
+
 BOOK {
     int id PK
     string isbn
@@ -23,6 +26,17 @@ BOOK {
 CATEGORY {
     int id PK
     string name
+}
+
+BOOKCASE {
+    int id PK
+    int floor
+    int aile
+}
+
+BOOK_LOCATION {
+    int id_book FK
+    int id_bookcase FK
 }
 ```
 
