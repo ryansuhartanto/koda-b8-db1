@@ -6,13 +6,15 @@ Database exercise implementing an ERD for library.
 ---
 title: Library
 ---
-
 erDiagram
 
 CATEGORY ||--o{ BOOK : "classifies"
 
 CATEGORY ||--o{ BOOKCASE_CATEGORY : "occupies"
 BOOKCASE ||--o{ BOOKCASE_CATEGORY : "provides"
+
+PERSON ||--o| PATRON : "may be"
+PERSON ||--o| BOOKKEEPER : "may be"
 
 BOOKKEEPER ||--o{ SHIFT : "is rostered for"
 
@@ -45,14 +47,19 @@ BOOKCASE_CATEGORY {
     int id_bookcase FK
 }
 
-BOOKKEEPER {
+PERSON {
     int id PK
     string name
     string phone
     string address
 
-    string gender
-    date birthdate
+    string? gender
+    date? birthdate
+}
+
+BOOKKEEPER {
+    int id PK
+    int id_person FK
 }
 
 SHIFT {
@@ -67,11 +74,7 @@ SHIFT {
 
 PATRON {
     int id PK
-    string name
-    string phone
-    string address
-
-    date? birthdate
+    int id_person FK
 }
 
 LOAN {
